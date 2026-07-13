@@ -1,1166 +1,2386 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daniel De Torres — Web & Mobile Developer</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/images/Daniel.jpg"
+      type="image/x-icon"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daniel De Torres - Portfolio</title>
+      :root {
+        --bg-primary: #0a0a0f;
+        --bg-secondary: #111118;
+        --bg-card: #16161f;
+        --bg-card-hover: #1c1c28;
+        --accent: #7c3aed;
+        --accent-light: #a78bfa;
+        --accent-glow: rgba(124, 58, 237, 0.3);
+        --cyan: #06b6d4;
+        --cyan-glow: rgba(6, 182, 212, 0.2);
+        --text-primary: #f1f0fb;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --border: rgba(255, 255, 255, 0.07);
+        --border-accent: rgba(124, 58, 237, 0.4);
+        --radius: 16px;
+        --radius-sm: 10px;
+        --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
 
-  <!--
-    - favicon
-  -->
-  <link rel="shortcut icon" href="./assets/images/Daniel.jpg" type="image/x-icon">
+      html {
+        scroll-behavior: smooth;
+      }
 
-  <!--
-    - custom css link
-  -->
-  <link rel="stylesheet" href="./assets/css/style.css">
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
 
-  <!--
-    - google font link
-  -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
+      /* ── SCROLLBAR ── */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-primary);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 3px;
+      }
 
-<body>
+      /* ── NOISE OVERLAY ── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.4;
+      }
 
-  <!--
-    - #MAIN
-  -->
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 60px;
+        background: rgba(10, 10, 15, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        transition: var(--transition);
+      }
+      nav.scrolled {
+        padding: 12px 60px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      }
+      .nav-logo {
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        background: linear-gradient(135deg, var(--accent-light), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-decoration: none;
+      }
+      .nav-links {
+        display: flex;
+        gap: 36px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        transition: var(--transition);
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--cyan));
+        border-radius: 2px;
+        transition: var(--transition);
+      }
+      .nav-links a:hover {
+        color: var(--text-primary);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      .nav-cta {
+        padding: 9px 22px;
+        border-radius: 50px;
+        background: linear-gradient(135deg, var(--accent), #5b21b6);
+        color: #fff !important;
+        font-weight: 600 !important;
+        font-size: 0.85rem !important;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow: 0 0 20px var(--accent-glow);
+        transition: var(--transition) !important;
+      }
+      .nav-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 30px var(--accent-glow);
+      }
+      .nav-cta::after {
+        display: none !important;
+      }
 
-  <main>
+      /* mobile hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--text-primary);
+        border-radius: 2px;
+        transition: var(--transition);
+      }
 
-    <!--
-      - #SIDEBAR
-    -->
+      /* ── HERO ── */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 60px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-bg-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        pointer-events: none;
+      }
+      .orb-1 {
+        width: 600px;
+        height: 600px;
+        top: -100px;
+        right: -100px;
+        background: rgba(124, 58, 237, 0.15);
+      }
+      .orb-2 {
+        width: 400px;
+        height: 400px;
+        bottom: 0;
+        left: -100px;
+        background: rgba(6, 182, 212, 0.1);
+      }
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(124, 58, 237, 0.15);
+        border: 1px solid var(--border-accent);
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        color: var(--accent-light);
+        font-weight: 500;
+        margin-bottom: 20px;
+        letter-spacing: 0.5px;
+      }
+      .hero-badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent-light);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+      .hero-title {
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        margin-bottom: 16px;
+      }
+      .hero-title .name-gradient {
+        background: linear-gradient(
+          135deg,
+          #fff 0%,
+          var(--accent-light) 50%,
+          var(--cyan) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-typed-wrap {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+        min-height: 2rem;
+      }
+      .hero-typed {
+        color: var(--cyan);
+        font-family: "Fira Code", monospace;
+        font-weight: 500;
+      }
+      .cursor-blink {
+        animation: blink 1s infinite;
+        color: var(--accent-light);
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+      .hero-desc {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+        margin-bottom: 36px;
+        max-width: 520px;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        padding: 14px 32px;
+        border-radius: 50px;
+        background: linear-gradient(135deg, var(--accent), #5b21b6);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0 30px var(--accent-glow);
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 45px var(--accent-glow);
+      }
+      .btn-outline {
+        padding: 14px 32px;
+        border-radius: 50px;
+        border: 1px solid var(--border-accent);
+        color: var(--accent-light);
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: transparent;
+      }
+      .btn-outline:hover {
+        background: var(--accent-glow);
+        border-color: var(--accent-light);
+        transform: translateY(-3px);
+      }
+      .hero-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 48px;
+      }
+      .stat-num {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--accent-light), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .stat-label {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 4px;
+      }
 
-    <aside class="sidebar" data-sidebar>
+      /* hero right - profile card */
+      .hero-profile-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 36px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      }
+      .hero-profile-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--cyan));
+      }
+      .profile-img-wrap {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+      .profile-img-wrap img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--accent);
+        display: block;
+      }
+      .profile-status {
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+        width: 20px;
+        height: 20px;
+        background: #22c55e;
+        border-radius: 50%;
+        border: 3px solid var(--bg-card);
+        animation: pulse 2s infinite;
+      }
+      .profile-name {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .profile-role {
+        font-size: 0.85rem;
+        color: var(--accent-light);
+        font-weight: 500;
+        margin-bottom: 20px;
+        font-family: "Fira Code", monospace;
+      }
+      .profile-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 16px 0;
+      }
+      .profile-contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        font-size: 0.83rem;
+        color: var(--text-secondary);
+      }
+      .profile-contact-item ion-icon {
+        color: var(--accent-light);
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+      .profile-contact-item a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+      .profile-contact-item a:hover {
+        color: var(--accent-light);
+      }
+      .profile-social {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: var(--transition);
+        font-size: 1rem;
+      }
+      .social-btn:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+      .floating-tech {
+        position: absolute;
+        right: -10px;
+        top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .tech-badge {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 5px 10px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--accent-light);
+        font-family: "Fira Code", monospace;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
 
-      <div class="sidebar-info">
+      /* ── SECTION COMMON ── */
+      section {
+        padding: 100px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(124, 58, 237, 0.1);
+        border: 1px solid var(--border-accent);
+        padding: 5px 14px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        color: var(--accent-light);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 14px;
+      }
+      .section-title {
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin-bottom: 14px;
+      }
+      .section-title span {
+        background: linear-gradient(135deg, var(--accent-light), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .section-subtitle {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        max-width: 540px;
+      }
+      .section-header {
+        margin-bottom: 56px;
+      }
+      .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 0 60px;
+      }
 
-        <figure class="avatar-box">
-          <img src="./assets/images/Daniel.jpg" alt="Daniel De Torres" width="80">
-        </figure>
+      /* ── ABOUT ── */
+      #about .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: start;
+      }
+      .about-text p {
+        color: var(--text-secondary);
+        margin-bottom: 16px;
+        line-height: 1.9;
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 32px;
+      }
+      .service-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+      .service-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--accent-glow), transparent);
+        opacity: 0;
+        transition: var(--transition);
+      }
+      .service-card:hover {
+        border-color: var(--border-accent);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+      .service-card:hover::before {
+        opacity: 1;
+      }
+      .service-icon {
+        font-size: 1.6rem;
+        margin-bottom: 12px;
+        color: var(--accent-light);
+      }
+      .service-card h4 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .service-card p {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+      .about-right {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .info-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transition: var(--transition);
+      }
+      .info-card:hover {
+        border-color: var(--border-accent);
+      }
+      .info-card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--accent), #5b21b6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+      .info-card-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .info-card-value {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      .info-card-value a {
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+      .info-card-value a:hover {
+        color: var(--accent-light);
+      }
 
-        <div class="info-content">
-          <h1 class="name" title="Daniel De Torres">Daniel De Torres</h1>
+      /* ── SKILLS ── */
+      #skills {
+        background: var(--bg-secondary);
+      }
+      .skills-wrap {
+        padding: 100px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .skills-categories {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+      .skill-category-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--accent-light);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .skill-category-title::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+      .skills-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .skill-tag {
+        padding: 8px 18px;
+        border-radius: 50px;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-family: "Fira Code", monospace;
+        transition: var(--transition);
+        cursor: default;
+      }
+      .skill-tag:hover {
+        border-color: var(--accent);
+        color: var(--accent-light);
+        background: var(--accent-glow);
+        transform: translateY(-2px);
+      }
+      .skill-tag.highlight {
+        border-color: var(--border-accent);
+        color: var(--accent-light);
+        background: rgba(124, 58, 237, 0.1);
+      }
 
-          <p class="title">Web and Mobile developer</p>
+      /* ── EXPERIENCE ── */
+      #experience {
+        padding: 100px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .exp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+      }
+      .timeline {
+        position: relative;
+      }
+      .timeline-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--cyan);
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .timeline-title ion-icon {
+        font-size: 1rem;
+      }
+      .timeline-items {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .timeline-item {
+        position: relative;
+        padding: 0 0 32px 28px;
+        border-left: 2px solid var(--border);
+      }
+      .timeline-item:last-child {
+        border-left-color: transparent;
+        padding-bottom: 0;
+      }
+      .timeline-dot {
+        position: absolute;
+        left: -7px;
+        top: 4px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--cyan));
+        box-shadow: 0 0 12px var(--accent-glow);
+      }
+      .timeline-period {
+        font-size: 0.72rem;
+        color: var(--accent-light);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+        font-family: "Fira Code", monospace;
+      }
+      .timeline-role {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .timeline-company {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+      }
+      .timeline-desc {
+        font-size: 0.83rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+      .timeline-desc li {
+        margin-bottom: 4px;
+        list-style: none;
+        padding-left: 12px;
+        position: relative;
+      }
+      .timeline-desc li::before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: var(--accent-light);
+        font-size: 0.7rem;
+      }
+
+      /* ── PORTFOLIO ── */
+      #portfolio {
+        padding: 100px 60px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .filter-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+      }
+      .filter-btn {
+        padding: 8px 20px;
+        border-radius: 50px;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-muted);
+        font-size: 0.83rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        box-shadow: 0 0 20px var(--accent-glow);
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
+      .project-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: var(--transition);
+        position: relative;
+      }
+      .project-card:hover {
+        border-color: var(--border-accent);
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      }
+      .project-card.hidden {
+        display: none;
+      }
+      .project-img-wrap {
+        position: relative;
+        overflow: hidden;
+        height: 190px;
+      }
+      .project-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .project-card:hover .project-img-wrap img {
+        transform: scale(1.06);
+      }
+      .project-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(10, 10, 15, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+      }
+      .project-card:hover .project-overlay {
+        opacity: 1;
+      }
+      .project-link-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        border-radius: 50px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.83rem;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+      .project-link-btn:hover {
+        background: #5b21b6;
+        transform: scale(1.05);
+      }
+      .project-info {
+        padding: 18px 20px;
+      }
+      .project-cat {
+        font-size: 0.72rem;
+        color: var(--accent-light);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+      }
+      .project-name {
+        font-size: 0.98rem;
+        font-weight: 700;
+      }
+
+      /* ── TESTIMONIALS ── */
+      #testimonials {
+        background: var(--bg-secondary);
+      }
+      .test-wrap {
+        padding: 100px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .testimonial-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 32px;
+        position: relative;
+        overflow: hidden;
+        transition: var(--transition);
+      }
+      .testimonial-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--cyan));
+      }
+      .testimonial-card:hover {
+        border-color: var(--border-accent);
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+      }
+      .quote-icon {
+        font-size: 2.5rem;
+        color: var(--accent);
+        opacity: 0.3;
+        margin-bottom: 12px;
+        line-height: 1;
+      }
+      .testimonial-text {
+        font-size: 0.87rem;
+        color: var(--text-secondary);
+        line-height: 1.85;
+        margin-bottom: 24px;
+      }
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .testimonial-author img {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--border-accent);
+      }
+      .author-name {
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+      .author-date {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      /* ── CLIENTS ── */
+      #clients {
+        padding: 80px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .clients-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 16px;
+        align-items: center;
+      }
+      .client-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        aspect-ratio: 3/2;
+      }
+      .client-card:hover {
+        border-color: var(--border-accent);
+        transform: translateY(-3px);
+      }
+      .client-card img {
+        max-width: 100%;
+        max-height: 50px;
+        object-fit: contain;
+        filter: grayscale(1) brightness(0.7);
+        transition: var(--transition);
+      }
+      .client-card:hover img {
+        filter: grayscale(0) brightness(1);
+      }
+
+      /* ── CONTACT ── */
+      #contact {
+        padding: 100px 60px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 60px;
+      }
+      .contact-info h3 {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+      .contact-info p {
+        color: var(--text-secondary);
+        font-size: 0.92rem;
+        line-height: 1.8;
+        margin-bottom: 32px;
+      }
+      .contact-detail {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+      .contact-detail-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: rgba(124, 58, 237, 0.15);
+        border: 1px solid var(--border-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-light);
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+      .contact-detail-label {
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .contact-detail-value {
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+      .contact-detail-value a {
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+      .contact-detail-value a:hover {
+        color: var(--accent-light);
+      }
+      .map-wrap {
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        margin-top: 28px;
+      }
+      .map-wrap iframe {
+        display: block;
+        width: 100%;
+        height: 220px;
+        border: none;
+        filter: grayscale(1) invert(1) brightness(0.4);
+      }
+
+      /* form */
+      .contact-form-wrap {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 36px;
+      }
+      .form-group {
+        margin-bottom: 18px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+      .form-label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+      .form-input {
+        width: 100%;
+        padding: 13px 16px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        color: var(--text-primary);
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        outline: none;
+      }
+      .form-input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px var(--accent-glow);
+      }
+      .form-input::placeholder {
+        color: var(--text-muted);
+      }
+      textarea.form-input {
+        resize: vertical;
+        min-height: 130px;
+      }
+      .form-submit {
+        width: 100%;
+        padding: 14px;
+        border-radius: 50px;
+        background: linear-gradient(135deg, var(--accent), #5b21b6);
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 0 24px var(--accent-glow);
+      }
+      .form-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 40px var(--accent-glow);
+      }
+      .form-submit:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 36px 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer-logo {
+        font-size: 0.95rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--accent-light), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .footer-copy {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+      .footer-links {
+        display: flex;
+        gap: 20px;
+      }
+      .footer-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: var(--transition);
+      }
+      .footer-links a:hover {
+        color: var(--accent-light);
+      }
+
+      /* ── SCROLL TO TOP ── */
+      .scroll-top {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), #5b21b6);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 20px var(--accent-glow);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: var(--transition);
+        z-index: 99;
+      }
+      .scroll-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .scroll-top:hover {
+        transform: translateY(-4px);
+      }
+
+      /* ── ANIMATIONS ── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        nav {
+          padding: 16px 32px;
+        }
+        nav.scrolled {
+          padding: 12px 32px;
+        }
+        #hero {
+          padding: 110px 32px 60px;
+        }
+        .hero-content {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+        .hero-profile-card {
+          max-width: 380px;
+        }
+        .floating-tech {
+          display: none;
+        }
+        section,
+        #experience,
+        #portfolio,
+        #clients,
+        #contact {
+          padding: 80px 32px;
+        }
+        .skills-wrap,
+        .test-wrap {
+          padding: 80px 32px;
+        }
+        #about .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .exp-grid {
+          grid-template-columns: 1fr;
+        }
+        .testimonials-grid {
+          grid-template-columns: 1fr;
+        }
+        .clients-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          padding: 28px 32px;
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(10, 10, 15, 0.98);
+          backdrop-filter: blur(20px);
+          padding: 20px 32px;
+          border-bottom: 1px solid var(--border);
+          gap: 16px;
+        }
+        .nav-links.open {
+          display: flex;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .nav-cta {
+          display: none;
+        }
+        .hero-title {
+          font-size: 2.2rem;
+        }
+        .hero-stats {
+          gap: 24px;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .clients-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="navbar">
+      <a href="#hero" class="nav-logo">Daniel De Torres</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="mailto:danieldetorres.info@gmail.com" class="nav-cta">Hire Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-bg-orb orb-1"></div>
+      <div class="hero-bg-orb orb-2"></div>
+      <div class="hero-content">
+        <div class="hero-left fade-in">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Available for opportunities
+          </div>
+          <h1 class="hero-title">
+            Hi, I'm<br />
+            <span class="name-gradient">Daniel De Torres</span>
+          </h1>
+          <div class="hero-typed-wrap">
+            <span class="hero-typed" id="typedText"></span
+            ><span class="cursor-blink">|</span>
+          </div>
+          <p class="hero-desc">
+            Web & Mobile Developer building responsive, high-performing
+            applications with modern stacks — from MERN & Next.js to React
+            Native & AWS Cloud.
+          </p>
+          <div class="hero-btns">
+            <a href="#portfolio" class="btn-primary">
+              <ion-icon name="grid-outline"></ion-icon> View Work
+            </a>
+            <a href="#contact" class="btn-outline">
+              <ion-icon name="mail-outline"></ion-icon> Get in Touch
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="stat-num">3+</div>
+              <div class="stat-label">Years Coding</div>
+            </div>
+            <div>
+              <div class="stat-num">6+</div>
+              <div class="stat-label">Projects Shipped</div>
+            </div>
+            <div>
+              <div class="stat-num">6+</div>
+              <div class="stat-label">Happy Clients</div>
+            </div>
+          </div>
         </div>
 
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-
+        <div class="hero-right fade-in" style="transition-delay: 0.2s">
+          <div class="hero-profile-card">
+            <div class="profile-img-wrap">
+              <img src="./assets/images/Daniel.jpg" alt="Daniel De Torres" />
+              <div class="profile-status"></div>
+            </div>
+            <div class="profile-name">Daniel De Torres</div>
+            <div class="profile-role">// Web & Mobile Developer</div>
+            <div class="profile-divider"></div>
+            <div class="profile-contact-item">
+              <ion-icon name="mail-outline"></ion-icon>
+              <a href="mailto:danieldetorres.info@gmail.com"
+                >danieldetorres.info@gmail.com</a
+              >
+            </div>
+            <div class="profile-contact-item">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+              <span>+63 9243672984</span>
+            </div>
+            <div class="profile-contact-item">
+              <ion-icon name="location-outline"></ion-icon>
+              <span>Calamba City, Laguna, PH</span>
+            </div>
+            <div class="profile-social">
+              <a
+                href="https://www.linkedin.com/in/daniel-de-torres-10a021222/"
+                class="social-btn"
+                target="_blank"
+                rel="noopener"
+              >
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+              <a
+                href="https://github.com/dangrishh"
+                class="social-btn"
+                target="_blank"
+                rel="noopener"
+              >
+                <ion-icon name="logo-github"></ion-icon>
+              </a>
+              <a href="mailto:danieldetorres.info@gmail.com" class="social-btn">
+                <ion-icon name="mail-outline"></ion-icon>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="sidebar-info_more">
+    <div class="divider"></div>
 
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-
-          <li class="contact-item">
-
-            <div class="icon-box">
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-header fade-in">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">
+          Turning Ideas into <span>Digital Reality</span>
+        </h2>
+        <p class="section-subtitle">
+          Crafting scalable, modern solutions that look great and perform even
+          better.
+        </p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p>
+            I'm a Web and Mobile Developer specializing in building responsive
+            and high-performing applications. I enjoy transforming complex
+            technical challenges into smooth, efficient, and user-friendly
+            digital solutions.
+          </p>
+          <p>
+            My aim is to deliver scalable, secure, and modern applications using
+            technologies like AWS Cloud, MERN Stack with TypeScript, React
+            Native for POS systems, and Next.js for frontend development. I also
+            have experience working as a freelance developer in Australia,
+            contributing to responsive and maintainable web solutions.
+          </p>
+          <div class="services-grid" style="margin-top: 28px">
+            <div class="service-card fade-in">
+              <div class="service-icon">
+                <ion-icon name="globe-outline"></ion-icon>
+              </div>
+              <h4>Web Development</h4>
+              <p>
+                Responsive, high-quality websites built with modern stacks and
+                best practices.
+              </p>
+            </div>
+            <div class="service-card fade-in" style="transition-delay: 0.1s">
+              <div class="service-icon">
+                <ion-icon name="phone-portrait-outline"></ion-icon>
+              </div>
+              <h4>Mobile Apps</h4>
+              <p>
+                Professional iOS & Android development using React Native for
+                seamless UX.
+              </p>
+            </div>
+            <div class="service-card fade-in" style="transition-delay: 0.2s">
+              <div class="service-icon">
+                <ion-icon name="cloud-outline"></ion-icon>
+              </div>
+              <h4>Cloud Solutions</h4>
+              <p>
+                AWS deployments, IVR flows with Amazon Connect, and CI/CD
+                integration.
+              </p>
+            </div>
+            <div class="service-card fade-in" style="transition-delay: 0.3s">
+              <div class="service-icon">
+                <ion-icon name="server-outline"></ion-icon>
+              </div>
+              <h4>Backend APIs</h4>
+              <p>
+                Scalable REST APIs with Node.js, Express, NestJS and various
+                databases.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="about-right fade-in" style="transition-delay: 0.2s">
+          <div class="info-card">
+            <div class="info-card-icon">
               <ion-icon name="mail-outline"></ion-icon>
             </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-
-              <a href="mailto:danieldetorres.info@gmail.com" class="contact-link">danieldetorres.info@gmail.com</a>
+            <div>
+              <div class="info-card-label">Email</div>
+              <div class="info-card-value">
+                <a href="mailto:danieldetorres.info@gmail.com"
+                  >danieldetorres.info@gmail.com</a
+                >
+              </div>
             </div>
-
-          </li>
-
-          <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">
+              <ion-icon name="call-outline"></ion-icon>
             </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-
-              <a href="tel:+12133522795" class="contact-link">+63 9243672984</a>
+            <div>
+              <div class="info-card-label">Phone</div>
+              <div class="info-card-value">
+                <a href="tel:+639243672984">+63 9243672984</a>
+              </div>
             </div>
-
-          </li>
-
-          <!-- <li class="contact-item">
-
-            <div class="icon-box">
-              <ion-icon name="calendar-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Birthday</p>
-
-              <time datetime="1982-06-23">June 30, 2002</time>
-            </div>
-
-          </li> -->
-
-          <li class="contact-item">
-
-            <div class="icon-box">
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">
               <ion-icon name="location-outline"></ion-icon>
             </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Location</p>
-
-              <address>Pansol Calamba City, Laguna, Philippines</address>
+            <div>
+              <div class="info-card-label">Location</div>
+              <div class="info-card-value">
+                Pansol Calamba City, Laguna, Philippines
+              </div>
             </div>
-
-          </li>
-
-        </ul>
-
-        <div class="separator"></div>
-
-        <ul class="social-list">
-
-          <!-- <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li> -->
-
-          <li class="social-item">
-            <a href="https://www.linkedin.com/in/daniel-de-torres-10a021222/" class="social-link">
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">
               <ion-icon name="logo-linkedin"></ion-icon>
-            </a>
-          </li>
-
-        </ul>
-
+            </div>
+            <div>
+              <div class="info-card-label">LinkedIn</div>
+              <div class="info-card-value">
+                <a
+                  href="https://www.linkedin.com/in/daniel-de-torres-10a021222/"
+                  target="_blank"
+                  rel="noopener"
+                  >daniel-de-torres</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">
+              <ion-icon name="school-outline"></ion-icon>
+            </div>
+            <div>
+              <div class="info-card-label">Education</div>
+              <div class="info-card-value">
+                BSIT — Laguna State Polytechnic Univ.
+              </div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-icon">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
+            <div>
+              <div class="info-card-label">Status</div>
+              <div class="info-card-value" style="color: #22c55e">
+                Open to opportunities
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-    </aside>
+    <div class="divider"></div>
 
-
-
-
-
-    <!--
-      - #main-content
-    -->
-
-    <div class="main-content">
-
-      <!--
-        - #NAVBAR
-      -->
-
-      <nav class="navbar">
-
-        <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
-          </li>
-
-          <!-- <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Blog</button>
-          </li> -->
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Contact</button>
-          </li>
-
-        </ul>
-
-      </nav>
-
-
-
-
-
-      <!--
-        - #ABOUT
-      -->
-
-      <article class="about  active" data-page="about">
-
-        <header>
-          <h2 class="h2 article-title">About me</h2>
-        </header>
-
-        <section class="about-text">
-          <p>
-            I'm a Web and Mobile Developer specializing in building responsive and high-performing applications. 
-            I enjoy transforming complex technical challenges into smooth, efficient, and user-friendly digital solutions. 
+    <!-- SKILLS -->
+    <div id="skills">
+      <div class="skills-wrap">
+        <div class="section-header fade-in">
+          <div class="section-tag">Tech Stack</div>
+          <h2 class="section-title">Skills & <span>Technologies</span></h2>
+          <p class="section-subtitle">
+            The tools and technologies I work with every day.
           </p>
-
-          <p>
-            My job is to create websites and mobile apps that are functional, fast, and visually appealing. Moreover, 
-            I add a personal touch to every project to ensure it’s intuitive, engaging, and aligned with your brand goals. 
-            My aim is to deliver scalable, secure, and modern applications using technologies like AWS Cloud, MERN Stack with TypeScript, 
-            React Native for POS systems, and Next.js for frontend development. I also have experience working as a freelance developer in Australia, 
-            where I contributed to building responsive and maintainable web solutions.
-          </p>
-        </section>
-
-
-        <!--
-          - service
-        -->
-
-        <section class="service">
-
-          <h3 class="h3 service-title">What i'm doing</h3>
-
-          <ul class="service-list">
-
-            <!-- <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-design.svg
-                " alt="design icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web design</h4>
-
-                <p class="service-item-text">
-                  The most modern and high-quality design made at a professional level.
-                </p>
-              </div>
-
-            </li> -->
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web development</h4>
-
-                <p class="service-item-text">
-                   Responsive and high-quality website development.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Mobile apps</h4>
-
-                <p class="service-item-text">
-                  Professional development of applications for iOS and Android.
-                </p>
-              </div>
-
-            </li>
-
-            <!-- <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Photography</h4>
-
-                <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
-                </p>
-              </div>
-
-            </li> -->
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials
-        -->
-
-        <section class="testimonials">
-
-          <h3 class="h3 testimonials-title">Testimonials</h3>
-
-          <ul class="testimonials-list has-scrollbar">
-
-            <!-- JP -->
-            <li class="testimonials-item">
-              <div class="content-card"
-                  data-testimonials-item
-                  data-testimonials-date="20 October, 2025">
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/jp.jpg"
-                      alt="Juan Paulo Migriño"
-                      width="60"
-                      data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>
-                  Juan Paulo Migriño
-                </h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    I’m pleased to recommend Daniel De Torres, a talented and reliable developer with strong expertise in the MERN stack, TypeScript, and PostgreSQL. He has hands-on experience in both web and mobile development, working confidently with React and React Native to build high-quality, scalable applications. <br><br>
-                    What sets Daniel apart is his ability to write clean, efficient code and his strong problem-solving skills. He’s proactive, quick to learn, and consistently delivers on time. Whether working independently or as part of a team, he brings professionalism and a positive attitude that makes collaboration smooth and productive. <br><br>
-                    I’m confident Daniel would be a valuable addition to any development team and highly recommend him for roles involving full-stack or mobile development.
-                  </p>
-                </div>
-              </div>
-            </li>
-
-            <!-- Franklin -->
-            <li class="testimonials-item">
-              <div class="content-card"
-                  data-testimonials-item
-                  data-testimonials-date="22 September, 2025">
-
-                <figure class="testimonials-avatar-box">
-                  <img src="./assets/images/franklin.jpg"
-                      alt="Franklin Mayad"
-                      width="60"
-                      height="85"
-                      data-testimonials-avatar>
-                </figure>
-
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>
-                  Franklin Mayad
-                </h4>
-
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    I’ve worked with Daniel De Torres, and I can confidently recommend him. He is experienced in full-stack development MERN, TypeScript, and cloud solutions, with hands-on knowledge of Amazon Connect and Node.js / Python. <br><br>
-                    I’ve had the chance to work with him closely as a UI/UX Designer, and he was the one who coded my design into a fully functional application. He is dependable, quick to solve problems, and a great team player.
-                  </p>
-                </div>
-              </div>
-            </li>
-
-          </ul>
-
-        </section>
-
-
-        <!--
-          - testimonials modal
-        -->
-
-        <!-- ==========================
-     TESTIMONIAL MODAL
-          ========================== -->
-          <div class="modal-container" data-modal-container>
-            <div class="overlay" data-overlay></div>
-
-            <section class="testimonials-modal">
-              <button class="modal-close-btn" data-modal-close-btn>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-
-              <div class="modal-img-wrapper">
-                <figure class="modal-avatar-box">
-                  <img src="" alt="" width="80" data-modal-img>
-                </figure>
-                <img src="./assets/images/icon-quote.svg" alt="quote icon">
-              </div>
-
-              <div class="modal-content">
-                <h4 class="h3 modal-title" data-modal-title></h4>
-                <time data-modal-date></time>
-                <div data-modal-text></div>
-              </div>
-            </section>
-          </div>
-
-
-        <!--
-          - clients
-        -->
-
-        <section class="clients">
-
-          <h3 class="h3 clients-title">Clients</h3>
-
-          <ul class="clients-list has-scrollbar">
-
-            <li class="clients-item">
-              <a href="https://purelygive.com/">
-                <img src="./assets/images/PurelyGiveLogo.png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/RiskyRabbit.jpg" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="https://roomey.com.au/">
-                <img src="./assets/images/roomey..png" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="https://www.unimelb.edu.au/">
-                <img src="./assets/images/UniMelb.jpg" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/hacienda-darasa.jpg" alt="client logo">
-              </a>
-            </li>
-
-            <li class="clients-item">
-              <a href="#">
-                <img src="./assets/images/lspu-lb.jpg" alt="client logo">
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #RESUME
-      -->
-
-      <article class="resume" data-page="resume">
-
-        <header>
-          <h2 class="h2 article-title">Resume</h2>
-        </header>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
+        </div>
+        <div class="skills-categories fade-in">
+          <div>
+            <div class="skill-category-title">Frontend</div>
+            <div class="skills-tags">
+              <span class="skill-tag highlight">React.js</span>
+              <span class="skill-tag highlight">Next.js</span>
+              <span class="skill-tag highlight">React Native</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">HTML</span>
+              <span class="skill-tag">CSS</span>
+              <span class="skill-tag">Responsiveness</span>
             </div>
-
-            <h3 class="h3">Education</h3>
           </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Laguna State Polytechnic University</h4>
-
-              <span>2021 — 2025</span>
-
-              <p class="timeline-text">
-                Bachelor of Science in Information Technology. <br>
-                • Gained comprehensive knowledge in UI/UX design, Python, and C# for web and mobile development. <br>
-                • Experienced with modern technologies including the MERN Stack (MongoDB, Express.js, React, Node.js), TypeScript, Next.js, Angular.js, Firebase, and AWS Cloud Development. <br>
-                • Learned about website hosting, domain management, and cloud deployment. <br>
-                • Utilized tools such as Visual Studio Code, Postman, and cloud-based development platforms.
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Saint John and Paul Sr. High School</h4>
-
-              <span>2018 — 2021</span>
-
-              <p class="timeline-text">
-                   • Focused on Information and Communication Technology (ICT) with hands-on learning in software development using .NET web applications.  <br>
-               • Gained experience with technologies such as C#, ASP.NET, HTML, CSS, JavaScript, and SQL Server. <br>
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Eduardo Barretto High School</h4>
-
-              <span>2014 — 2018</span>
-
-              <p class="timeline-text">
-                • Learned the fundamentals of computer hardware and basic troubleshooting for desktops and laptops.
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-        <section class="timeline">
-
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
+          <div>
+            <div class="skill-category-title">Backend</div>
+            <div class="skills-tags">
+              <span class="skill-tag highlight">Node.js</span>
+              <span class="skill-tag highlight">Express.js</span>
+              <span class="skill-tag">NestJS</span>
+              <span class="skill-tag">PHP</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">Full-Stack Development</span>
             </div>
-
-            <h3 class="h3">Experience</h3>
           </div>
-
-          <ol class="timeline-list">
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Cloud Developer Expert</h4>
-
-              <small class="text-muted">iCXeed Philippines Inc. (Remote)</small>
-
-              <span> June 2025 — Sept 2025</span>
-
-              <p class="timeline-text">
-                 • Develops and deploys Amazon Connect IVR and contact flows based on
-                  client and project requirements. <br> 
-
-                 • Manages production deployments, configurations, and release processes to
-                  ensure stability. <br>
-
-                 • Collaborates with DevOps for CI/CD integration and contributes to backend
-                  development using Node.js and Python. <br>
-
-                 • Provides technical support, troubleshooting assistance, and maintains
-                  detailed deployment documentation. <br>
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Full Stack Developer</h4>
-
-              <small class="text-muted">Hacienda Darasa Resort and Hotel (Hybrid)</small>
-
-              <span>Feb 2025 — May 2025</span>
-
-              <p class="timeline-text">
-                • Implements company logic and optimizes databases to ensure smooth and
-                efficient system performance. <br>
-
-                • Develops and maintains high-performance mobile applications using React
-                Native for Android. <br>
-
-                • Builds and integrates backend systems with front-end designs to deliver
-                complete, reliable applications. <br>
-
-                • Writes clean, organized code while continuously learning and solving
-                problems to enhance functionality. <br>
-              </p>
-
-            </li>
-
-            <li class="timeline-item">
-
-              <h4 class="h4 timeline-item-title">Web and Mobile Developer</h4>
-
-              <small class="text-muted">Freelance</small>
-
-              <span>2024 — Present</span>
-
-              <p class="timeline-text">
-                  • Develops and maintains scalable web and mobile applications using Next.js,
-                  Node.js, and React Native to ensure high performance, mobile responsive
-                  and smooth user experiences. <br>
-                  
-                  • Researches new tech stacks and communicates directly with the boss to
-                  align on technical strategies and project improvements. <br>
-              </p>
-
-            </li>
-
-          </ol>
-
-        </section>
-
-<section class="skill">
-
-  <h3 class="h3 skills-title">My Skills</h3>
-
-  <ul class="skills-list content-card">
-
-    <li class="skills-item">
-      <h5 class="h5">React Native</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">TypeScript</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">JavaScript</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">React.js</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">Next.js</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">Node.js</h5>
-    </li>
-    
-    <li class="skills-item">
-      <h5 class="h5">Express.js</h5>
-    </li>
-    
-    <li class="skills-item">
-      <h5 class="h5">Nest.js</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">Problem Solving</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">MongoDB</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">PostgreSQL</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">Firebase</h5>
-    </li>
-        <li class="skills-item">
-      <h5 class="h5">DynamoDB</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">Python</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">AWS</h5>
-    </li>
-    
-    <li class="skills-item">
-      <h5 class="h5">EC2</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">S3</h5>
-    </li>
-
-    <li class="skills-item">
-      <h5 class="h5">Lambda</h5>
-    </li>
-
-  </ul>
-
-</section>
-
-
-      </article>
-
-
-
-
-
-      <!--
-        - #PORTFOLIO
-      -->
-
-      <article class="portfolio" data-page="portfolio">
-
-        <header>
-          <h2 class="h2 article-title">Portfolio</h2>
-        </header>
-
-        <section class="projects">
-
-          <ul class="filter-list">
-
-            <li class="filter-item">
-              <button class="active" data-filter-btn>All</button>
-            </li>
-
-            <!-- <li class="filter-item">
-              <button data-filter-btn>Web design</button>
-            </li> -->
-
-            <li class="filter-item">
-              <button data-filter-btn>Applications</button>
-            </li>
-
-            <li class="filter-item">
-              <button data-filter-btn>Web development</button>
-            </li>
-
-          </ul>
-
-          <div class="filter-select-box">
-
-            <button class="filter-select" data-select>
-
-              <div class="select-value" data-selecct-value>Select category</div>
-
-              <div class="select-icon">
-                <ion-icon name="chevron-down"></ion-icon>
-              </div>
-
-            </button>
-
-            <ul class="select-list">
-
-              <li class="select-item">
-                <button data-select-item>All</button>
-              </li>
-
-              <!-- <li class="select-item">
-                <button data-select-item>Web design</button>
-              </li> -->
-
-              <li class="select-item">
-                <button data-select-item>Applications</button>
-              </li>
-
-              <li class="select-item">
-                <button data-select-item>Web development</button>
-              </li>
-
-            </ul>
-
-          </div>
-
-          <ul class="project-list">
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="https://github.com/dangrishh/Military-Trello-Analytics">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/Military-Data-Visialization-Website.png" alt="Military-Data-Visualization" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Military-Dashboard</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/Series1Resort-Website.jpg" alt="Series1Resort" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Resort Booking</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="https://github.com/dangrishh/Hacienda-Darasa-Resort-Hotel">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/HaciendaDarasa-MobileTablet.png" alt="POS - Tablet Size" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">POS Hacienda Darasa</h3>
-
-                <p class="project-category">Applications</p>
-
-              </a>
-            </li>
-
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="https://github.com/code-franklin/ResearchTree-Partial-Code.git">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/ResearchTree-Webiste.png" alt="ResearchTree" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Research Management Portal</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <!-- <li class="project-item  active" data-filter-item data-category="applications">
-              <a href="#">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/Jeremias-Website-Responsive.png" alt="Resort Booking" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Resort Booking</h3>
-
-                <p class="project-category">Applications</p>
-
-              </a>
-            </li> -->
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="https://resort-jeremias.vercel.app/">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/Jeremias-Website-Responsive.png" alt="Resort Booking" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">Resort Booking</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-            <li class="project-item  active" data-filter-item data-category="web development">
-              <a href="https://purelygive.com/">
-
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-
-                  <img src="./assets/images/Client-PurelyGive.png" alt="PurelyGive" loading="lazy">
-                </figure>
-
-                <h3 class="project-title">PurelyGive</h3>
-
-                <p class="project-category">Web development</p>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
-      <!--
-        - #BLOG
-      -->
-
-      <!-- <article class="blog" data-page="blog">
-
-        <header>
-          <h2 class="h2 article-title">Blog</h2>
-        </header>
-
-        <section class="blog-posts">
-
-          <ul class="blog-posts-list">
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-1.jpg" alt="Design conferences in 2022" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design conferences in 2022</h3>
-
-                  <p class="blog-text">
-                    Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Best fonts every designer</h3>
-
-                  <p class="blog-text">
-                    Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-3.jpg" alt="Design digest #80" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #80</h3>
-
-                  <p class="blog-text">
-                    Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-4.jpg" alt="UI interactions of the week" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">UI interactions of the week</h3>
-
-                  <p class="blog-text">
-                    Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
-
-                  <p class="blog-text">
-                    Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-6.jpg" alt="Design digest #79" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #79</h3>
-
-                  <p class="blog-text">
-                    Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article> -->
-
-
-
-
-
-      <!--
-        - #CONTACT
-      -->
-
-      <article class="contact" data-page="contact">
-
-        <header>
-          <h2 class="h2 article-title">Contact</h2>
-        </header>
-
-        <section class="mapbox" data-mapbox>
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.1975543566235!2d121.17579647483211!3d14.225551187998844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd63f7e92aeb7d%3A0xd1c3e1b96c7b6cc3!2sPansol%2C%20Calamba%2C%20Laguna%2C%20Philippines!5e0!3m2!1sen!2sph!4v1734743000000!5m2!1sen!2sph" 
-          width="600" 
-          height="450" 
-          style="border:0;" 
-          allowfullscreen="" 
-          loading="lazy" 
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-        </section>
-
-        <section class="contact-form">
-
-          <h3 class="h3 form-title">Contact Form</h3>
-
-          <form action="#" class="form" data-form>
-
-            <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
-
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+          <div>
+            <div class="skill-category-title">Databases</div>
+            <div class="skills-tags">
+              <span class="skill-tag highlight">MongoDB</span>
+              <span class="skill-tag highlight">PostgreSQL</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Firebase</span>
+              <span class="skill-tag">DynamoDB</span>
             </div>
-
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
-
-            <button class="form-btn" type="submit" disabled data-form-btn>
-              <ion-icon name="paper-plane"></ion-icon>
-              <span>Send Message</span>
-            </button>
-
-          </form>
-
-        </section>
-
-      </article>
-
+          </div>
+          <div>
+            <div class="skill-category-title">Cloud & DevOps</div>
+            <div class="skills-tags">
+              <span class="skill-tag highlight">AWS</span>
+              <span class="skill-tag">EC2</span>
+              <span class="skill-tag">S3</span>
+              <span class="skill-tag">Lambda</span>
+              <span class="skill-tag">Amazon Connect</span>
+              <span class="skill-tag">CI/CD</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-category-title">Tools & Workflow</div>
+            <div class="skills-tags">
+              <span class="skill-tag highlight">Git</span>
+              <span class="skill-tag highlight">GitHub</span>
+              <span class="skill-tag">Postman API</span>
+              <span class="skill-tag">Navicat</span>
+              <span class="skill-tag">Figma</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-category-title">Professional</div>
+            <div class="skills-tags">
+              <span class="skill-tag">Problem Solving</span>
+              <span class="skill-tag">Communication</span>
+              <span class="skill-tag">Client Management</span>
+              <span class="skill-tag">Web Development</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-  </main>
+    <div class="divider"></div>
 
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header fade-in">
+        <div class="section-tag">Background</div>
+        <h2 class="section-title">Experience & <span>Education</span></h2>
+        <p class="section-subtitle">
+          My professional journey and academic foundation.
+        </p>
+      </div>
+      <div class="exp-grid">
+        <!-- Experience -->
+        <div class="timeline fade-in">
+          <div class="timeline-title">
+            <ion-icon name="briefcase-outline"></ion-icon> Work Experience
+          </div>
+          <div class="timeline-items">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-period">April 2025 — Present</div>
+              <div class="timeline-role">Full-Stack Developer</div>
+              <div class="timeline-company">Dole · Full-time</div>
+              <ul class="timeline-desc">
+                <li>
+                  Serve as the primary point of contact for clients, translating
+                  business requirements into clear technical deliverables and
+                  maintaining consistent communication throughout the project
+                  lifecycle.
+                </li>
+                <li>
+                  Oversee day-to-day task planning and database administration
+                  using MySQL and Navicat, ensuring data integrity, performance,
+                  and on-time delivery of features.
+                </li>
+                <li>
+                  Architect and implement secure, maintainable backend logic
+                  using PHP and MySQL, building server-side solutions precisely
+                  tailored to each client's specifications.
+                </li>
+                <li>
+                  Collaborate cross-functionally to design, test, and deploy
+                  full-stack features — from responsive front-end interfaces to
+                  robust database-driven APIs.
+                </li>
+              </ul>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-period">June 2025 — Sept 2025</div>
+              <div class="timeline-role">Cloud Developer Expert</div>
+              <div class="timeline-company">
+                iCXeed Philippines Inc. · Remote
+              </div>
+              <ul class="timeline-desc">
+                <li>
+                  Deploy Amazon Connect IVR and contact flows per client
+                  requirements
+                </li>
+                <li>
+                  Manage production deployments, CI/CD integration with DevOps
+                </li>
+                <li>Backend development using Node.js and Python</li>
+                <li>Technical support and detailed deployment documentation</li>
+              </ul>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-period">Feb 2025 — May 2025</div>
+              <div class="timeline-role">Full Stack Developer</div>
+              <div class="timeline-company">
+                Hacienda Darasa Resort and Hotel · Hybrid
+              </div>
+              <ul class="timeline-desc">
+                <li>
+                  Implement company logic and optimize database performance
+                </li>
+                <li>
+                  Build high-performance mobile apps with React Native for
+                  Android
+                </li>
+                <li>Integrate backend systems with front-end designs</li>
+              </ul>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-period">2024 — Present</div>
+              <div class="timeline-role">Web & Mobile Developer</div>
+              <div class="timeline-company">
+                Freelance · Australia & Philippines
+              </div>
+              <ul class="timeline-desc">
+                <li>
+                  Scalable web & mobile apps with Next.js, Node.js, React Native
+                </li>
+                <li>
+                  Research new tech stacks and align on technical strategies
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Education -->
+        <div class="timeline fade-in" style="transition-delay: 0.15s">
+          <div class="timeline-title">
+            <ion-icon name="school-outline"></ion-icon> Education
+          </div>
+          <div class="timeline-items">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-period">2021 — 2025</div>
+              <div class="timeline-role">BS Information Technology</div>
+              <div class="timeline-company">
+                Laguna State Polytechnic University
+              </div>
+              <ul class="timeline-desc">
+                <li>
+                  MERN Stack, TypeScript, Next.js, Angular.js, Firebase, AWS
+                  Cloud
+                </li>
+                <li>
+                  UI/UX Design, Python, and C# for web and mobile development
+                </li>
+                <li>
+                  Website hosting, domain management, and cloud deployment
+                </li>
+              </ul>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-period">2018 — 2021</div>
+              <div class="timeline-role">ICT Strand — Senior High School</div>
+              <div class="timeline-company">
+                Saint John and Paul Sr. High School
+              </div>
+              <ul class="timeline-desc">
+                <li>
+                  Software development with .NET web applications (C#, ASP.NET)
+                </li>
+                <li>HTML, CSS, JavaScript, and SQL Server</li>
+              </ul>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-period">2014 — 2018</div>
+              <div class="timeline-role">Junior High School</div>
+              <div class="timeline-company">Eduardo Barretto High School</div>
+              <ul class="timeline-desc">
+                <li>
+                  Computer hardware fundamentals and basic troubleshooting
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <div class="divider"></div>
 
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <div class="section-header fade-in">
+        <div class="section-tag">Portfolio</div>
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <p class="section-subtitle">
+          A selection of projects I've built and shipped.
+        </p>
+      </div>
+      <div class="filter-tabs fade-in">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="web development">
+          Web Development
+        </button>
+        <button class="filter-btn" data-filter="applications">
+          Applications
+        </button>
+      </div>
+      <div class="projects-grid" id="projectsGrid">
+        <div class="project-card fade-in" data-category="web development">
+          <div class="project-img-wrap">
+            <img
+              src="./assets/images/Military-Data-Visialization-Website.png"
+              alt="Military Dashboard"
+              loading="lazy"
+            />
+            <div class="project-overlay">
+              <a
+                href="https://github.com/dangrishh/Military-Trello-Analytics"
+                target="_blank"
+                rel="noopener"
+                class="project-link-btn"
+              >
+                <ion-icon name="eye-outline"></ion-icon> View
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Web Development</div>
+            <div class="project-name">Military Dashboard</div>
+          </div>
+        </div>
+        <div
+          class="project-card fade-in"
+          data-category="web development"
+          style="transition-delay: 0.05s"
+        >
+          <div class="project-img-wrap">
+            <img
+              src="./assets/images/Series1Resort-Website.jpg"
+              alt="Resort Booking"
+              loading="lazy"
+            />
+            <div class="project-overlay">
+              <a href="#" class="project-link-btn">
+                <ion-icon name="eye-outline"></ion-icon> View
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Web Development</div>
+            <div class="project-name">Resort Booking</div>
+          </div>
+        </div>
+        <div
+          class="project-card fade-in"
+          data-category="applications"
+          style="transition-delay: 0.1s"
+        >
+          <div class="project-img-wrap">
+            <img
+              src="./assets/images/HaciendaDarasa-MobileTablet.png"
+              alt="POS Hacienda Darasa"
+              loading="lazy"
+            />
+            <div class="project-overlay">
+              <a
+                href="https://github.com/dangrishh/Hacienda-Darasa-Resort-Hotel"
+                target="_blank"
+                rel="noopener"
+                class="project-link-btn"
+              >
+                <ion-icon name="eye-outline"></ion-icon> View
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Applications</div>
+            <div class="project-name">POS — Hacienda Darasa</div>
+          </div>
+        </div>
+        <div
+          class="project-card fade-in"
+          data-category="web development"
+          style="transition-delay: 0.15s"
+        >
+          <div class="project-img-wrap">
+            <img
+              src="./assets/images/ResearchTree-Webiste.png"
+              alt="Research Management Portal"
+              loading="lazy"
+            />
+            <div class="project-overlay">
+              <a
+                href="https://github.com/code-franklin/ResearchTree-Partial-Code.git"
+                target="_blank"
+                rel="noopener"
+                class="project-link-btn"
+              >
+                <ion-icon name="eye-outline"></ion-icon> View
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Web Development</div>
+            <div class="project-name">Research Management Portal</div>
+          </div>
+        </div>
+        <div
+          class="project-card fade-in"
+          data-category="web development"
+          style="transition-delay: 0.2s"
+        >
+          <div class="project-img-wrap">
+            <img
+              src="./assets/images/Jeremias-Website-Responsive.png"
+              alt="Resort Booking Jeremias"
+              loading="lazy"
+            />
+            <div class="project-overlay">
+              <a
+                href="https://resort-jeremias.vercel.app/"
+                target="_blank"
+                rel="noopener"
+                class="project-link-btn"
+              >
+                <ion-icon name="eye-outline"></ion-icon> View Live
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Web Development</div>
+            <div class="project-name">Resort Booking — Jeremias</div>
+          </div>
+        </div>
+        <div
+          class="project-card fade-in"
+          data-category="web development"
+          style="transition-delay: 0.25s"
+        >
+          <div class="project-img-wrap">
+            <img
+              src="./assets/images/Client-PurelyGive.png"
+              alt="PurelyGive"
+              loading="lazy"
+            />
+            <div class="project-overlay">
+              <a
+                href="https://purelygive.com/"
+                target="_blank"
+                rel="noopener"
+                class="project-link-btn"
+              >
+                <ion-icon name="eye-outline"></ion-icon> View Live
+              </a>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-cat">Web Development</div>
+            <div class="project-name">PurelyGive</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <div class="divider"></div>
 
+    <!-- TESTIMONIALS -->
+    <div id="testimonials">
+      <div class="test-wrap">
+        <div class="section-header fade-in">
+          <div class="section-tag">Testimonials</div>
+          <h2 class="section-title">What People <span>Say</span></h2>
+          <p class="section-subtitle">
+            Feedback from colleagues and clients I've had the pleasure of
+            working with.
+          </p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card fade-in">
+            <div class="quote-icon">"</div>
+            <p class="testimonial-text">
+              I'm pleased to recommend Daniel De Torres, a talented and reliable
+              developer with strong expertise in the MERN stack, TypeScript, and
+              PostgreSQL. He has hands-on experience in both web and mobile
+              development, working confidently with React and React Native to
+              build high-quality, scalable applications.<br /><br />What sets
+              Daniel apart is his ability to write clean, efficient code and his
+              strong problem-solving skills. He's proactive, quick to learn, and
+              consistently delivers on time.
+            </p>
+            <div class="testimonial-author">
+              <img src="./assets/images/jp.jpg" alt="Juan Paulo Migriño" />
+              <div>
+                <div class="author-name">Juan Paulo Migriño</div>
+                <div class="author-date">October 20, 2025</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card fade-in" style="transition-delay: 0.15s">
+            <div class="quote-icon">"</div>
+            <p class="testimonial-text">
+              I've worked with Daniel De Torres, and I can confidently recommend
+              him. He is experienced in full-stack development MERN, TypeScript,
+              and cloud solutions, with hands-on knowledge of Amazon Connect and
+              Node.js / Python.<br /><br />I've had the chance to work with him
+              closely as a UI/UX Designer, and he was the one who coded my
+              design into a fully functional application. He is dependable,
+              quick to solve problems, and a great team player.
+            </p>
+            <div class="testimonial-author">
+              <img src="./assets/images/franklin.jpg" alt="Franklin Mayad" />
+              <div>
+                <div class="author-name">Franklin Mayad</div>
+                <div class="author-date">September 22, 2025</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!--
-    - custom js link
-  -->
-  <script src="./assets/js/script.js"></script>
+    <div class="divider"></div>
 
-  <!--
-    - ionicon link
-  -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- CLIENTS -->
+    <section id="clients">
+      <div class="section-header fade-in" style="text-align: center">
+        <div class="section-tag" style="margin: 0 auto 14px">Clients</div>
+        <h2 class="section-title">Trusted By</h2>
+      </div>
+      <div class="clients-grid fade-in">
+        <a
+          href="https://purelygive.com/"
+          target="_blank"
+          rel="noopener"
+          class="client-card"
+        >
+          <img src="./assets/images/PurelyGiveLogo.png" alt="PurelyGive" />
+        </a>
+        <a href="#" class="client-card">
+          <img src="./assets/images/RiskyRabbit.jpg" alt="Risky Rabbit" />
+        </a>
+        <a
+          href="https://roomey.com.au/"
+          target="_blank"
+          rel="noopener"
+          class="client-card"
+        >
+          <img src="./assets/images/roomey..png" alt="Roomey" />
+        </a>
+        <a
+          href="https://www.unimelb.edu.au/"
+          target="_blank"
+          rel="noopener"
+          class="client-card"
+        >
+          <img
+            src="./assets/images/UniMelb.jpg"
+            alt="University of Melbourne"
+          />
+        </a>
+        <a href="#" class="client-card">
+          <img
+            src="./assets/images/hacienda-darasa.jpg"
+            alt="Hacienda Darasa"
+          />
+        </a>
+        <a href="#" class="client-card">
+          <img src="./assets/images/lspu-lb.jpg" alt="LSPU" />
+        </a>
+      </div>
+    </section>
 
-</body>
+    <div class="divider"></div>
 
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-header fade-in">
+        <div class="section-tag">Contact</div>
+        <h2 class="section-title">Let's <span>Work Together</span></h2>
+        <p class="section-subtitle">
+          Have a project in mind? I'd love to hear about it.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <h3>Get in Touch</h3>
+          <p>
+            Whether you have a project, a question, or just want to say hi — my
+            inbox is always open. I'll get back to you as soon as possible.
+          </p>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+            <div>
+              <div class="contact-detail-label">Email</div>
+              <div class="contact-detail-value">
+                <a href="mailto:danieldetorres.info@gmail.com"
+                  >danieldetorres.info@gmail.com</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <ion-icon name="call-outline"></ion-icon>
+            </div>
+            <div>
+              <div class="contact-detail-label">Phone</div>
+              <div class="contact-detail-value">
+                <a href="tel:+639243672984">+63 9243672984</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+            <div>
+              <div class="contact-detail-label">Location</div>
+              <div class="contact-detail-value">
+                Pansol Calamba City, Laguna, Philippines
+              </div>
+            </div>
+          </div>
+          <div class="map-wrap">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.1975543566235!2d121.17579647483211!3d14.225551187998844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd63f7e92aeb7d%3A0xd1c3e1b96c7b6cc3!2sPansol%2C%20Calamba%2C%20Laguna%2C%20Philippines!5e0!3m2!1sen!2sph!4v1734743000000!5m2!1sen!2sph"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+          </div>
+        </div>
+        <div class="contact-form-wrap fade-in" style="transition-delay: 0.15s">
+          <form id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="fullname">Full Name</label>
+                <input
+                  type="text"
+                  id="fullname"
+                  name="fullname"
+                  class="form-input"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="john@example.com"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="subject">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                class="form-input"
+                placeholder="Project Inquiry"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                class="form-input"
+                placeholder="Tell me about your project..."
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="form-submit" id="submitBtn">
+              <ion-icon name="paper-plane-outline"></ion-icon>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">Daniel De Torres</div>
+      <div class="footer-copy">
+        © 2025 Daniel De Torres. Built with passion.
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#portfolio">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </footer>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+      <ion-icon name="chevron-up-outline"></ion-icon>
+    </button>
+
+    <script>
+      // ── TYPED TEXT ──
+      const phrases = [
+        "Web Developer",
+        "Mobile Developer",
+        "Full Stack Developer",
+        "AWS Cloud Developer",
+        "MERN Stack Developer",
+      ];
+      let phraseIdx = 0,
+        charIdx = 0,
+        deleting = false;
+      const typedEl = document.getElementById("typedText");
+      function type() {
+        const current = phrases[phraseIdx];
+        if (!deleting) {
+          typedEl.textContent = current.slice(0, ++charIdx);
+          if (charIdx === current.length) {
+            deleting = true;
+            setTimeout(type, 1800);
+            return;
+          }
+        } else {
+          typedEl.textContent = current.slice(0, --charIdx);
+          if (charIdx === 0) {
+            deleting = false;
+            phraseIdx = (phraseIdx + 1) % phrases.length;
+          }
+        }
+        setTimeout(type, deleting ? 60 : 90);
+      }
+      type();
+
+      // ── NAV SCROLL ──
+      const navbar = document.getElementById("navbar");
+      const scrollTopBtn = document.getElementById("scrollTop");
+      window.addEventListener("scroll", () => {
+        navbar.classList.toggle("scrolled", window.scrollY > 50);
+        scrollTopBtn.classList.toggle("visible", window.scrollY > 400);
+      });
+      scrollTopBtn.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" }),
+      );
+
+      // ── HAMBURGER ──
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      hamburger.addEventListener("click", () =>
+        navLinks.classList.toggle("open"),
+      );
+      navLinks
+        .querySelectorAll("a")
+        .forEach((a) =>
+          a.addEventListener("click", () => navLinks.classList.remove("open")),
+        );
+
+      // ── PORTFOLIO FILTER ──
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filter = btn.dataset.filter;
+          document.querySelectorAll(".project-card").forEach((card) => {
+            if (filter === "all" || card.dataset.category === filter) {
+              card.classList.remove("hidden");
+            } else {
+              card.classList.add("hidden");
+            }
+          });
+        });
+      });
+
+      // ── FORM VALIDATION & SUBMIT ──
+      const form = document.getElementById("contactForm");
+      const submitBtn = document.getElementById("submitBtn");
+      form.addEventListener("input", () => {
+        const valid = form.checkValidity();
+        submitBtn.disabled = !valid;
+      });
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        submitBtn.innerHTML =
+          '<ion-icon name="checkmark-outline"></ion-icon> Message Sent!';
+        submitBtn.style.background = "linear-gradient(135deg,#22c55e,#16a34a)";
+        submitBtn.disabled = true;
+        setTimeout(() => {
+          submitBtn.innerHTML =
+            '<ion-icon name="paper-plane-outline"></ion-icon> Send Message';
+          submitBtn.style.background = "";
+          submitBtn.disabled = false;
+          form.reset();
+        }, 3000);
+      });
+
+      // ── SCROLL ANIMATIONS ──
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+      );
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
 </html>
