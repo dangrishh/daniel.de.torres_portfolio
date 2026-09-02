@@ -276,36 +276,91 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
-      .hero-typed-wrap {
-        font-size: 1.2rem;
-        color: var(--text-secondary);
-        margin-bottom: 24px;
-        min-height: 2rem;
+      /* hero specialty slider — auto-rotating like a story bar */
+      .hero-slider {
+        max-width: 520px;
+        margin-bottom: 36px;
       }
-      .hero-typed {
-        color: var(--cyan);
+      .hero-slide-track {
+        position: relative;
+        min-height: 110px;
+      }
+      .hero-slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 0.28s ease,
+          transform 0.28s ease;
+        pointer-events: none;
+        visibility: hidden;
+      }
+      .hero-slide.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        visibility: visible;
+      }
+      .hero-slide-role {
+        font-size: 1.3rem;
+        font-weight: 800;
         font-family: "Fira Code", monospace;
-        font-weight: 500;
+        color: var(--slide-accent, var(--cyan));
+        margin-bottom: 8px;
+        transition: color 0.4s ease;
       }
-      .cursor-blink {
-        animation: blink 1s infinite;
-        color: var(--accent-light);
-      }
-      @keyframes blink {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
-      }
-      .hero-desc {
+      .hero-slide-desc {
         font-size: 1rem;
         color: var(--text-secondary);
-        line-height: 1.8;
-        margin-bottom: 36px;
-        max-width: 520px;
+        line-height: 1.7;
+        margin-bottom: 10px;
+      }
+      .hero-slide-stat {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .hero-slide-stat strong {
+        color: var(--text-primary);
+        font-family: "Fira Code", monospace;
+        letter-spacing: 0;
+      }
+      .hero-slide-progress {
+        display: flex;
+        gap: 6px;
+        margin-top: 18px;
+      }
+      .progress-seg {
+        flex: 1;
+        height: 3px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        cursor: pointer;
+      }
+      .progress-seg i {
+        display: block;
+        height: 100%;
+        width: 0%;
+        background: var(--slide-accent, var(--accent-light));
+        border-radius: 3px;
+      }
+      .progress-seg.done i {
+        width: 100%;
+        transition: background 0.4s ease;
+      }
+      .progress-seg.active i {
+        animation: fillBar 4s linear forwards;
+      }
+      @keyframes fillBar {
+        from {
+          width: 0%;
+        }
+        to {
+          width: 100%;
+        }
       }
       .hero-btns {
         display: flex;
@@ -350,27 +405,6 @@
         background: var(--accent-glow);
         border-color: var(--accent-light);
         transform: translateY(-3px);
-      }
-      .hero-stats {
-        display: flex;
-        gap: 40px;
-        margin-top: 48px;
-      }
-      .stat-num {
-        font-size: 2rem;
-        font-weight: 800;
-        line-height: 1;
-        background: linear-gradient(135deg, var(--accent-light), var(--cyan));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .stat-label {
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-top: 4px;
       }
 
       /* hero right - profile card */
@@ -801,6 +835,10 @@
         color: var(--accent-light);
         font-size: 0.7rem;
       }
+      .desc-highlight {
+        color: var(--accent-light);
+        font-weight: 600;
+      }
 
       /* ── PORTFOLIO ── */
       #portfolio {
@@ -1095,79 +1133,89 @@
         filter: grayscale(1) invert(1) brightness(0.4);
       }
 
-      /* form */
-      .contact-form-wrap {
+      /* social */
+      .social-links-wrap {
         background: var(--bg-card);
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 36px;
       }
-      .form-group {
-        margin-bottom: 18px;
+      .social-links-wrap h3 {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-bottom: 14px;
       }
-      .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+      .social-links-wrap > p {
+        color: var(--text-secondary);
+        font-size: 0.92rem;
+        line-height: 1.8;
+        margin-bottom: 28px;
+      }
+      .social-links-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .social-link-card {
+        display: flex;
+        align-items: center;
         gap: 16px;
-        margin-bottom: 18px;
-      }
-      .form-label {
-        display: block;
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 8px;
-      }
-      .form-input {
-        width: 100%;
-        padding: 13px 16px;
+        padding: 16px 18px;
         background: var(--bg-secondary);
         border: 1px solid var(--border);
         border-radius: var(--radius-sm);
-        color: var(--text-primary);
-        font-family: "Inter", sans-serif;
-        font-size: 0.9rem;
+        text-decoration: none;
         transition: var(--transition);
-        outline: none;
       }
-      .form-input:focus {
+      .social-link-card:hover {
         border-color: var(--accent);
-        box-shadow: 0 0 0 3px var(--accent-glow);
+        background: rgba(124, 58, 237, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px var(--accent-glow);
       }
-      .form-input::placeholder {
-        color: var(--text-muted);
-      }
-      textarea.form-input {
-        resize: vertical;
-        min-height: 130px;
-      }
-      .form-submit {
-        width: 100%;
-        padding: 14px;
-        border-radius: 50px;
-        background: linear-gradient(135deg, var(--accent), #5b21b6);
-        color: #fff;
-        font-weight: 700;
-        font-size: 0.95rem;
-        border: none;
-        cursor: pointer;
-        transition: var(--transition);
+      .social-link-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: rgba(124, 58, 237, 0.15);
+        border: 1px solid var(--border-accent);
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 8px;
-        box-shadow: 0 0 24px var(--accent-glow);
+        color: var(--accent-light);
+        font-size: 1.3rem;
+        flex-shrink: 0;
+        transition: var(--transition);
       }
-      .form-submit:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 0 40px var(--accent-glow);
+      .social-link-card:hover .social-link-icon {
+        background: var(--accent);
+        color: #fff;
       }
-      .form-submit:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none;
+      .social-link-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .social-link-name {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+      .social-link-handle {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .social-link-arrow {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+      .social-link-card:hover .social-link-arrow {
+        color: var(--accent-light);
+        transform: translate(3px, -3px);
       }
 
       /* ── FOOTER ── */
@@ -1328,8 +1376,8 @@
         .hero-title {
           font-size: 2.2rem;
         }
-        .hero-stats {
-          gap: 24px;
+        .hero-slide-role {
+          font-size: 1.1rem;
         }
         .services-grid {
           grid-template-columns: 1fr;
@@ -1378,15 +1426,43 @@
             Hi, I'm<br />
             <span class="name-gradient">Daniel De Torres</span>
           </h1>
-          <div class="hero-typed-wrap">
-            <span class="hero-typed" id="typedText"></span
-            ><span class="cursor-blink">|</span>
+          <div class="hero-slider" id="heroSlider">
+            <div class="hero-slide-track">
+              <div class="hero-slide" data-accent="#a78bfa">
+                <div class="hero-slide-role">Web Developer</div>
+                <p class="hero-slide-desc">
+                  Building fast, responsive interfaces with React, Next.js &
+                  modern web stacks.
+                </p>
+                <div class="hero-slide-stat">
+                  <strong>3+</strong> years coding
+                </div>
+              </div>
+              <div class="hero-slide" data-accent="#06b6d4">
+                <div class="hero-slide-role">Mobile Developer</div>
+                <p class="hero-slide-desc">
+                  Crafting native-feel iOS & Android apps with React Native.
+                </p>
+                <div class="hero-slide-stat">
+                  <strong>6+</strong> projects shipped
+                </div>
+              </div>
+              <div class="hero-slide" data-accent="#f59e0b">
+                <div class="hero-slide-role">Cloud & Backend Developer</div>
+                <p class="hero-slide-desc">
+                  Scaling reliable systems with AWS, Node.js, PHP & MySQL.
+                </p>
+                <div class="hero-slide-stat">
+                  <strong>6+</strong> happy clients
+                </div>
+              </div>
+            </div>
+            <div class="hero-slide-progress" id="heroSlideProgress">
+              <span class="progress-seg" data-index="0"><i></i></span>
+              <span class="progress-seg" data-index="1"><i></i></span>
+              <span class="progress-seg" data-index="2"><i></i></span>
+            </div>
           </div>
-          <p class="hero-desc">
-            Web & Mobile Developer building responsive, high-performing
-            applications with modern stacks — from MERN & Next.js to React
-            Native & AWS Cloud.
-          </p>
           <div class="hero-btns">
             <a href="#portfolio" class="btn-primary">
               <ion-icon name="grid-outline"></ion-icon> View Work
@@ -1395,26 +1471,12 @@
               <ion-icon name="mail-outline"></ion-icon> Get in Touch
             </a>
           </div>
-          <div class="hero-stats">
-            <div>
-              <div class="stat-num">3+</div>
-              <div class="stat-label">Years Coding</div>
-            </div>
-            <div>
-              <div class="stat-num">6+</div>
-              <div class="stat-label">Projects Shipped</div>
-            </div>
-            <div>
-              <div class="stat-num">6+</div>
-              <div class="stat-label">Happy Clients</div>
-            </div>
-          </div>
         </div>
 
         <div class="hero-right fade-in" style="transition-delay: 0.2s">
           <div class="hero-profile-card">
             <div class="profile-img-wrap">
-              <img src="./assets/images/dt-brown.jpg" alt="Daniel De Torres" />
+              <img src="./assets/images/dt.jpg" alt="Daniel De Torres" />
               <div class="profile-status"></div>
             </div>
             <div class="profile-name">Daniel De Torres</div>
@@ -1667,6 +1729,8 @@
               <span class="skill-tag">Lambda</span>
               <span class="skill-tag">Amazon Connect</span>
               <span class="skill-tag">CI/CD</span>
+              <span class="skill-tag">Hostinger</span>
+              <span class="skill-tag">Heroku</span>
             </div>
           </div>
           <div>
@@ -1717,25 +1781,24 @@
               <div class="timeline-company">DOLE REGION 4A· Full-time</div>
               <ul class="timeline-desc">
                 <li>
-                  Serve as the primary point of contact for clients, translating
-                  business requirements into clear technical deliverables and
-                  maintaining consistent communication throughout the project
-                  lifecycle.
+                  <span class="desc-highlight">Developer collaboration</span> —
+                  work closely with the dev team to design, build, and ship
+                  full-stack features.
                 </li>
                 <li>
-                  Oversee day-to-day task planning and database administration
-                  using MySQL and Navicat, ensuring data integrity, performance,
-                  and on-time delivery of features.
+                  <span class="desc-highlight">System maintenance & QA</span> —
+                  maintain and test the system throughout development to keep it
+                  stable and client-ready.
                 </li>
                 <li>
-                  Architect and implement secure, maintainable backend logic
-                  using PHP and MySQL, building server-side solutions precisely
-                  tailored to each client's specifications.
+                  <span class="desc-highlight">Problem solving & client needs</span>
+                  — serve as the main point of contact, resolving issues and
+                  translating client requirements into working solutions.
                 </li>
                 <li>
-                  Collaborate cross-functionally to design, test, and deploy
-                  full-stack features — from responsive front-end interfaces to
-                  robust database-driven APIs.
+                  <span class="desc-highlight">Database & documentation</span> —
+                  maintain the database with a focus on accurate, up-to-date
+                  records and documentation.
                 </li>
               </ul>
             </div>
@@ -1748,14 +1811,30 @@
               </div>
               <ul class="timeline-desc">
                 <li>
-                  Deploy Amazon Connect IVR and contact flows per client
-                  requirements
+                  <span class="desc-highlight">Cloud deployment</span> —
+                  deploy Amazon Connect IVR and contact flows tailored to
+                  client requirements.
                 </li>
                 <li>
-                  Manage production deployments, CI/CD integration with DevOps
+                  <span class="desc-highlight">DevOps & CI/CD</span> — manage
+                  production deployments and CI/CD integration with the DevOps
+                  team.
                 </li>
-                <li>Backend development using Node.js and Python</li>
-                <li>Technical support and detailed deployment documentation</li>
+                <li>
+                  <span class="desc-highlight">Backend development</span> —
+                  build backend services and integrations using Node.js and
+                  Python.
+                </li>
+                <li>
+                  <span class="desc-highlight">Client concern resolution</span> —
+                  respond to client concerns and collaborate with the team to
+                  fix and implement solutions.
+                </li>
+                <li>
+                  <span class="desc-highlight">Technical support & documentation</span>
+                  — provide technical support and create new documentation for
+                  the systems I build.
+                </li>
               </ul>
             </div>
             <div class="timeline-item">
@@ -1767,13 +1846,20 @@
               </div>
               <ul class="timeline-desc">
                 <li>
-                  Implement company logic and optimize database performance
+                  <span class="desc-highlight">Backend development</span> —
+                  implement company business logic and optimize database
+                  performance for reliable, scalable operations.
                 </li>
                 <li>
-                  Build high-performance mobile apps with React Native for
-                  Android
+                  <span class="desc-highlight">Mobile app development</span> —
+                  build high-performance Android applications using React
+                  Native.
                 </li>
-                <li>Integrate backend systems with front-end designs</li>
+                <li>
+                  <span class="desc-highlight">System integration</span> —
+                  integrate backend systems with front-end designs for a
+                  seamless user experience.
+                </li>
               </ul>
             </div>
             <div class="timeline-item">
@@ -1785,10 +1871,14 @@
               </div>
               <ul class="timeline-desc">
                 <li>
-                  Scalable web & mobile apps with Next.js, Node.js, React Native
+                  <span class="desc-highlight">Full-stack development</span> —
+                  build scalable web and mobile applications using Next.js,
+                  Node.js, and React Native.
                 </li>
                 <li>
-                  Research new tech stacks and align on technical strategies
+                  <span class="desc-highlight">Technical research</span> —
+                  research new tech stacks and align with clients on the best
+                  technical strategy for each project.
                 </li>
               </ul>
             </div>
@@ -1809,14 +1899,30 @@
               </div>
               <ul class="timeline-desc">
                 <li>
-                  MERN Stack, TypeScript, Next.js, Angular.js, Firebase, AWS
-                  Cloud
+                  <span class="desc-highlight">Capstone project</span> — built
+                  the Research Management Portal (ResearchTree), a research
+                  defense platform connecting students, advisers, and panels.
                 </li>
                 <li>
-                  UI/UX Design, Python, and C# for web and mobile development
+                  <span class="desc-highlight">Online collaboration</span> —
+                  developed real-time collaboration tools so students,
+                  advisers, and panels can communicate throughout the research
+                  process.
                 </li>
                 <li>
-                  Website hosting, domain management, and cloud deployment
+                  <span class="desc-highlight">Document review & revision</span>
+                  — implemented a review and revision workflow for research
+                  documents, from student submission to adviser and panel
+                  feedback.
+                </li>
+                <li>
+                  <span class="desc-highlight">Tech stack</span> — MERN Stack,
+                  TypeScript, Next.js, Angular.js, Firebase, and AWS Cloud.
+                </li>
+                <li>
+                  <span class="desc-highlight">Additional coursework</span> —
+                  UI/UX design, Python, C#, website hosting, domain
+                  management, and cloud deployment.
                 </li>
               </ul>
             </div>
@@ -2198,57 +2304,81 @@
             </iframe>
           </div>
         </div>
-        <div class="contact-form-wrap fade-in" style="transition-delay: 0.15s">
-          <form id="contactForm">
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="fullname">Full Name</label>
-                <input
-                  type="text"
-                  id="fullname"
-                  name="fullname"
-                  class="form-input"
-                  placeholder="John Doe"
-                  required
-                />
+        <div class="social-links-wrap fade-in" style="transition-delay: 0.15s">
+          <h3>Connect With Me</h3>
+          <p>
+            Prefer social media? Find me on any of these platforms — I'm
+            always happy to connect.
+          </p>
+          <div class="social-links-grid">
+            <a
+              href="https://www.linkedin.com/in/daniel-de-torres-10a021222/"
+              class="social-link-card"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="social-link-icon">
+                <ion-icon name="logo-linkedin"></ion-icon>
               </div>
-              <div class="form-group">
-                <label class="form-label" for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="form-input"
-                  placeholder="john@example.com"
-                  required
-                />
+              <div class="social-link-info">
+                <div class="social-link-name">LinkedIn</div>
+                <div class="social-link-handle">daniel-de-torres</div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="subject">Subject</label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                class="form-input"
-                placeholder="Project Inquiry"
-              />
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="message">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                class="form-input"
-                placeholder="Tell me about your project..."
-                required
-              ></textarea>
-            </div>
-            <button type="submit" class="form-submit" id="submitBtn">
-              <ion-icon name="paper-plane-outline"></ion-icon>
-              Send Message
-            </button>
-          </form>
+              <ion-icon
+                name="arrow-forward-outline"
+                class="social-link-arrow"
+              ></ion-icon>
+            </a>
+            <a
+              href="https://github.com/dangrishh"
+              class="social-link-card"
+              target="_blank"
+              rel="noopener"
+            >
+              <div class="social-link-icon">
+                <ion-icon name="logo-github"></ion-icon>
+              </div>
+              <div class="social-link-info">
+                <div class="social-link-name">GitHub</div>
+                <div class="social-link-handle">@dangrishh</div>
+              </div>
+              <ion-icon
+                name="arrow-forward-outline"
+                class="social-link-arrow"
+              ></ion-icon>
+            </a>
+            <a
+              href="mailto:danieldetorres.info@gmail.com"
+              class="social-link-card"
+            >
+              <div class="social-link-icon">
+                <ion-icon name="mail-outline"></ion-icon>
+              </div>
+              <div class="social-link-info">
+                <div class="social-link-name">Email</div>
+                <div class="social-link-handle">
+                  danieldetorres.info@gmail.com
+                </div>
+              </div>
+              <ion-icon
+                name="arrow-forward-outline"
+                class="social-link-arrow"
+              ></ion-icon>
+            </a>
+            <a href="tel:+639243672984" class="social-link-card">
+              <div class="social-link-icon">
+                <ion-icon name="call-outline"></ion-icon>
+              </div>
+              <div class="social-link-info">
+                <div class="social-link-name">Phone</div>
+                <div class="social-link-handle">+63 9243672984</div>
+              </div>
+              <ion-icon
+                name="arrow-forward-outline"
+                class="social-link-arrow"
+              ></ion-icon>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -2272,37 +2402,53 @@
     </button>
 
     <script>
-      // ── TYPED TEXT ──
-      const phrases = [
-        "Web Developer",
-        "Mobile Developer",
-        "Full Stack Developer",
-        "AWS Cloud Developer",
-        "MERN Stack Developer",
-      ];
-      let phraseIdx = 0,
-        charIdx = 0,
-        deleting = false;
-      const typedEl = document.getElementById("typedText");
-      function type() {
-        const current = phrases[phraseIdx];
-        if (!deleting) {
-          typedEl.textContent = current.slice(0, ++charIdx);
-          if (charIdx === current.length) {
-            deleting = true;
-            setTimeout(type, 1800);
-            return;
-          }
-        } else {
-          typedEl.textContent = current.slice(0, --charIdx);
-          if (charIdx === 0) {
-            deleting = false;
-            phraseIdx = (phraseIdx + 1) % phrases.length;
-          }
+      // ── HERO SPECIALTY SLIDER ──
+      const heroSlider = document.getElementById("heroSlider");
+      if (heroSlider) {
+        const heroSlides = heroSlider.querySelectorAll(".hero-slide");
+        const heroSegs = heroSlider.querySelectorAll(".progress-seg");
+        let heroIdx = 0;
+        let heroTimer;
+
+        function showHeroSlide(i) {
+          heroIdx = i;
+          heroSlides.forEach((s, idx) =>
+            s.classList.toggle("active", idx === i),
+          );
+          heroSlider.style.setProperty(
+            "--slide-accent",
+            heroSlides[i].dataset.accent,
+          );
+          heroSegs.forEach((seg, idx) => {
+            seg.classList.remove("active", "done");
+            if (idx < i) seg.classList.add("done");
+          });
+          void heroSegs[i].offsetWidth;
+          heroSegs[i].classList.add("active");
         }
-        setTimeout(type, deleting ? 60 : 90);
+
+        function startHeroAutoplay() {
+          clearInterval(heroTimer);
+          heroTimer = setInterval(
+            () => showHeroSlide((heroIdx + 1) % heroSlides.length),
+            4000,
+          );
+        }
+
+        heroSegs.forEach((seg, idx) => {
+          seg.addEventListener("click", () => {
+            showHeroSlide(idx);
+            startHeroAutoplay();
+          });
+        });
+        heroSlider.addEventListener("mouseenter", () =>
+          clearInterval(heroTimer),
+        );
+        heroSlider.addEventListener("mouseleave", startHeroAutoplay);
+
+        showHeroSlide(0);
+        startHeroAutoplay();
       }
-      type();
 
       // ── NAV SCROLL ──
       const navbar = document.getElementById("navbar");
@@ -2343,28 +2489,6 @@
             }
           });
         });
-      });
-
-      // ── FORM VALIDATION & SUBMIT ──
-      const form = document.getElementById("contactForm");
-      const submitBtn = document.getElementById("submitBtn");
-      form.addEventListener("input", () => {
-        const valid = form.checkValidity();
-        submitBtn.disabled = !valid;
-      });
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        submitBtn.innerHTML =
-          '<ion-icon name="checkmark-outline"></ion-icon> Message Sent!';
-        submitBtn.style.background = "linear-gradient(135deg,#22c55e,#16a34a)";
-        submitBtn.disabled = true;
-        setTimeout(() => {
-          submitBtn.innerHTML =
-            '<ion-icon name="paper-plane-outline"></ion-icon> Send Message';
-          submitBtn.style.background = "";
-          submitBtn.disabled = false;
-          form.reset();
-        }, 3000);
       });
 
       // ── SCROLL ANIMATIONS ──
