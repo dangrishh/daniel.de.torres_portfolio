@@ -1,6 +1,19 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        let stored = null;
+        try {
+          stored = localStorage.getItem("theme");
+        } catch (e) {}
+        const prefersLight =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: light)").matches;
+        const initial = stored || (prefersLight ? "light" : "dark");
+        document.documentElement.setAttribute("data-theme", initial);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -48,9 +61,34 @@
         --text-muted: #64748b;
         --border: rgba(255, 255, 255, 0.07);
         --border-accent: rgba(124, 58, 237, 0.4);
+        --nav-bg: rgba(10, 10, 15, 0.8);
+        --nav-bg-solid: rgba(10, 10, 15, 0.98);
+        --overlay-bg: rgba(10, 10, 15, 0.7);
+        --map-filter: grayscale(1) invert(1) brightness(0.4);
         --radius: 16px;
         --radius-sm: 10px;
         --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      html[data-theme="light"] {
+        --bg-primary: #f7f7fb;
+        --bg-secondary: #eeeef5;
+        --bg-card: #ffffff;
+        --bg-card-hover: #f5f4fb;
+        --accent: #7c3aed;
+        --accent-light: #6d28d9;
+        --accent-glow: rgba(124, 58, 237, 0.18);
+        --cyan: #0891b2;
+        --cyan-glow: rgba(8, 145, 178, 0.15);
+        --text-primary: #14141c;
+        --text-secondary: #4b4b5a;
+        --text-muted: #6b6b7d;
+        --border: rgba(20, 20, 28, 0.09);
+        --border-accent: rgba(124, 58, 237, 0.35);
+        --nav-bg: rgba(247, 247, 251, 0.85);
+        --nav-bg-solid: rgba(247, 247, 251, 0.98);
+        --overlay-bg: rgba(20, 20, 28, 0.55);
+        --map-filter: none;
       }
 
       html {
@@ -63,6 +101,9 @@
         color: var(--text-primary);
         line-height: 1.7;
         overflow-x: hidden;
+        transition:
+          background var(--transition),
+          color var(--transition);
       }
 
       /* ── SCROLLBAR ── */
@@ -99,7 +140,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 18px 60px;
-        background: rgba(10, 10, 15, 0.8);
+        background: var(--nav-bg);
         backdrop-filter: blur(20px);
         border-bottom: 1px solid var(--border);
         transition: var(--transition);
@@ -168,6 +209,43 @@
       }
       .nav-cta::after {
         display: none !important;
+      }
+
+      /* theme toggle */
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+      .theme-toggle:hover {
+        border-color: var(--border-accent);
+        color: var(--accent-light);
+        transform: translateY(-2px);
+      }
+      .theme-toggle ion-icon {
+        pointer-events: none;
+      }
+      .theme-toggle .icon-moon {
+        display: none;
+      }
+      html[data-theme="light"] .theme-toggle .icon-sun {
+        display: none;
+      }
+      html[data-theme="light"] .theme-toggle .icon-moon {
+        display: block;
+      }
+      .nav-theme-item {
+        display: none;
       }
 
       /* mobile hamburger */
@@ -908,7 +986,7 @@
       .project-overlay {
         position: absolute;
         inset: 0;
-        background: rgba(10, 10, 15, 0.7);
+        background: var(--overlay-bg);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1130,7 +1208,7 @@
         width: 100%;
         height: 220px;
         border: none;
-        filter: grayscale(1) invert(1) brightness(0.4);
+        filter: var(--map-filter);
       }
 
       /* social */
@@ -1358,7 +1436,7 @@
           top: 100%;
           left: 0;
           right: 0;
-          background: rgba(10, 10, 15, 0.98);
+          background: var(--nav-bg-solid);
           backdrop-filter: blur(20px);
           padding: 20px 32px;
           border-bottom: 1px solid var(--border);
@@ -1372,6 +1450,12 @@
         }
         .nav-cta {
           display: none;
+        }
+        #navbar > .theme-toggle {
+          display: none;
+        }
+        .nav-theme-item {
+          display: flex;
         }
         .hero-title {
           font-size: 2.2rem;
@@ -1405,7 +1489,25 @@
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li class="nav-theme-item">
+          <button
+            class="theme-toggle"
+            id="themeToggleMobile"
+            aria-label="Toggle dark and light mode"
+          >
+            <ion-icon class="icon-sun" name="sunny-outline"></ion-icon>
+            <ion-icon class="icon-moon" name="moon-outline"></ion-icon>
+          </button>
+        </li>
       </ul>
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle dark and light mode"
+      >
+        <ion-icon class="icon-sun" name="sunny-outline"></ion-icon>
+        <ion-icon class="icon-moon" name="moon-outline"></ion-icon>
+      </button>
       <a href="mailto:danieldetorres.info@gmail.com" class="nav-cta">Hire Me</a>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -2449,6 +2551,26 @@
         showHeroSlide(0);
         startHeroAutoplay();
       }
+
+      // ── THEME TOGGLE ──
+      (function () {
+        const root = document.documentElement;
+        const toggles = [
+          document.getElementById("themeToggle"),
+          document.getElementById("themeToggleMobile"),
+        ].filter(Boolean);
+
+        toggles.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const next =
+              root.getAttribute("data-theme") === "light" ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try {
+              localStorage.setItem("theme", next);
+            } catch (e) {}
+          });
+        });
+      })();
 
       // ── NAV SCROLL ──
       const navbar = document.getElementById("navbar");
