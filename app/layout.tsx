@@ -19,13 +19,27 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Daniel De Torres — Web & Mobile Developer",
+  title: "Daniel A. De Torres — Web & Mobile Developer",
   description:
-    "Daniel De Torres is a Web & Mobile Developer specializing in React, Next.js, React Native, Node.js and AWS Cloud solutions.",
+    "Daniel A. De Torres is a Web & Mobile Developer specializing in React, Next.js, React Native, Node.js and AWS Cloud solutions.",
   icons: {
     icon: "/images/Daniel.jpg",
   },
 };
+
+const THEME_INIT_SCRIPT = `
+(function () {
+  var stored = null;
+  try {
+    stored = localStorage.getItem("theme");
+  } catch (e) {}
+  var prefersLight =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: light)").matches;
+  var initial = stored || (prefersLight ? "light" : "dark");
+  document.documentElement.setAttribute("data-theme", initial);
+})();
+`;
 
 export default function RootLayout({
   children,
@@ -34,6 +48,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${firaCode.variable}`}>
+      <head>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {THEME_INIT_SCRIPT}
+        </Script>
+      </head>
       <body>
         <DownloadToastProvider>{children}</DownloadToastProvider>
         <Script

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { profile, CV_FILE_PATH } from "@/lib/data";
 import { useDownloadToast } from "./DownloadToastProvider";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { href: "#about", label: "About" },
@@ -37,8 +38,12 @@ export default function Nav() {
             </a>
           </li>
         ))}
+        <li className="nav-theme-item">
+          <ThemeToggle id="themeToggleMobile" />
+        </li>
       </ul>
       <div className="nav-actions">
+        <ThemeToggle id="themeToggle" />
         <a
           href={CV_FILE_PATH}
           download

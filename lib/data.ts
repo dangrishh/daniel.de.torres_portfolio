@@ -1,5 +1,5 @@
 export const profile = {
-  name: "Daniel De Torres",
+  name: "Daniel A. De Torres",
   role: "Web & Mobile Developer",
   email: "danieldetorres.info@gmail.com",
   phone: "+63 9243672984",
@@ -235,7 +235,7 @@ export const projects = [
 
 export const testimonials = [
   {
-    text: "I'm pleased to recommend Daniel De Torres, a talented and reliable developer with strong expertise in the MERN stack, TypeScript, and PostgreSQL. He has hands-on experience in both web and mobile development, working confidently with React and React Native to build high-quality, scalable applications.\n\nWhat sets Daniel apart is his ability to write clean, efficient code and his strong problem-solving skills. He's proactive, quick to learn, and consistently delivers on time.",
+    text: "I'm pleased to recommend Daniel A. De Torres, a talented and reliable developer with strong expertise in the MERN stack, TypeScript, and PostgreSQL. He has hands-on experience in both web and mobile development, working confidently with React and React Native to build high-quality, scalable applications.\n\nWhat sets Daniel apart is his ability to write clean, efficient code and his strong problem-solving skills. He's proactive, quick to learn, and consistently delivers on time.",
     image: "/images/jp.jpg",
     name: "Juan Paulo Migriño",
     date: "October 20, 2025",

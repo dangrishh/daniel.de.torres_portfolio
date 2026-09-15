@@ -112,7 +112,7 @@ export default function Hero() {
           <div className="hero-profile-card">
             <div className="profile-img-wrap">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/dt.jpg" alt={profile.name} />
+              <img src="/images/dt-brown.jpg" alt={profile.name} />
               <div className="profile-status"></div>
             </div>
             <div className="profile-name">{profile.name}</div>
