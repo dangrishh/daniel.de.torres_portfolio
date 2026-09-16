@@ -1,19 +1,11 @@
 import { NextResponse } from "next/server";
 import { getResendClient } from "@/lib/resend";
+import { renderContactEmail } from "@/lib/contactEmail";
 
 export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_LEN = { name: 100, email: 200, subject: 150, message: 5000 };
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
@@ -79,15 +71,7 @@ export async function POST(request: Request) {
       to: toEmail,
       replyTo: email,
       subject: `[Portfolio] ${subject}`,
-      html: `
-        <div style="font-family: sans-serif; line-height: 1.6;">
-          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-          <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
-          <p><strong>Message:</strong></p>
-          <p>${escapeHtml(message).replace(/\n/g, "<br />")}</p>
-        </div>
-      `,
+      html: renderContactEmail({ name, email, subject, message }),
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`,
     });
 

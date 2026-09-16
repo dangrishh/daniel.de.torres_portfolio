@@ -47,7 +47,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${firaCode.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${firaCode.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
