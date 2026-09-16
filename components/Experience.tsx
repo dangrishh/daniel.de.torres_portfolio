@@ -1,5 +1,8 @@
+"use client";
+
 import FadeIn from "./FadeIn";
-import { workExperience, education } from "@/lib/data";
+import { workExperience, education, CV_FILE_PATH } from "@/lib/data";
+import { useDownloadToast } from "./DownloadToastProvider";
 
 function TimelineList({
   items,
@@ -39,6 +42,8 @@ function TimelineList({
 }
 
 export default function Experience() {
+  const { showDownloadToast } = useDownloadToast();
+
   return (
     <section id="experience">
       <FadeIn as="div" className="section-header">
@@ -49,6 +54,14 @@ export default function Experience() {
         <p className="section-subtitle">
           My professional journey and academic foundation.
         </p>
+        <a
+          href={CV_FILE_PATH}
+          download
+          className="btn-outline"
+          onClick={() => showDownloadToast()}
+        >
+          <ion-icon name="download-outline"></ion-icon> Download CV
+        </a>
       </FadeIn>
       <div className="exp-grid">
         <FadeIn className="timeline">

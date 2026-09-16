@@ -3,15 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import FadeIn from "./FadeIn";
 import { heroSlides, profile } from "@/lib/data";
-import { CV_FILE_PATH } from "@/lib/data";
-import { useDownloadToast } from "./DownloadToastProvider";
 
 const SLIDE_DURATION = 4000;
 
 export default function Hero() {
   const [active, setActive] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const { showDownloadToast } = useDownloadToast();
 
   const startAutoplay = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -96,14 +93,6 @@ export default function Hero() {
             </a>
             <a href="#contact" className="btn-outline">
               <ion-icon name="mail-outline"></ion-icon> Get in Touch
-            </a>
-            <a
-              href={CV_FILE_PATH}
-              download
-              className="btn-outline"
-              onClick={() => showDownloadToast()}
-            >
-              <ion-icon name="download-outline"></ion-icon> Download CV
             </a>
           </div>
         </FadeIn>

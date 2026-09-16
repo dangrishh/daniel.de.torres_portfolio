@@ -647,6 +647,9 @@ section {
 .section-header {
   margin-bottom: 56px;
 }
+.section-header .btn-outline {
+  margin-top: 20px;
+}
 .divider {
   height: 1px;
   background: var(--border);

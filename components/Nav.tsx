@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { profile, CV_FILE_PATH } from "@/lib/data";
-import { useDownloadToast } from "./DownloadToastProvider";
+import { profile } from "@/lib/data";
 import ThemeToggle from "./ThemeToggle";
 
 const links = [
@@ -17,7 +16,6 @@ const links = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { showDownloadToast } = useDownloadToast();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -44,14 +42,6 @@ export default function Nav() {
       </ul>
       <div className="nav-actions">
         <ThemeToggle id="themeToggle" />
-        <a
-          href={CV_FILE_PATH}
-          download
-          className="nav-cv-btn"
-          onClick={() => showDownloadToast()}
-        >
-          <ion-icon name="download-outline"></ion-icon> Download CV
-        </a>
         <a href={`mailto:${profile.email}`} className="nav-cta">
           Hire Me
         </a>
